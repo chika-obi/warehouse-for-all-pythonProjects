@@ -8,6 +8,58 @@ import random
 #------------------------FUNCTIONS----------------------------------------------
 billnumber = random.randint(1000,10000)
 constant = "OCK"
+#------------------------CHECKBUTTON FUNCTIONS----------------------------------------------
+def toggle_widget_swallow():
+    if check_var_swallow.get():
+        swallow_combobox.config(state=NORMAL)
+        swallowQty_spinbox.config(state=NORMAL)
+        swallowAmount.config(state=NORMAL)
+        swallowRate_spinbox.config(state=NORMAL)
+
+    else:
+        swallow_combobox.config(state=DISABLED)
+        swallowQty_spinbox.config(state=DISABLED)
+        swallowAmount.config(state=DISABLED)
+        swallowRate_spinbox.config(state=DISABLED)
+
+def toggle_widget_soup():
+    if check_var_soup.get():
+        soup_combobox.config(state=NORMAL)
+        soupQty_spinbox.config(state=NORMAL)
+        soupAmount.config(state=NORMAL)
+        soupRate_spinbox.config(state=NORMAL)
+    else:
+        soup_combobox.config(state=DISABLED)
+        soupQty_spinbox.config(state=DISABLED)
+        soupAmount.config(state=DISABLED)
+        soupRate_spinbox.config(state=DISABLED)
+
+def toggle_widget_protein():
+    if check_var_protein.get():
+        protein_combobox.config(state=NORMAL)
+        proteinQty_spinbox.config(state=NORMAL)
+        proteinAmount.config(state=NORMAL)
+        proteinRate_spinbox.config(state=NORMAL)
+    else:
+        protein_combobox.config(state=DISABLED)
+        proteinQty_spinbox.config(state=DISABLED)
+        proteinAmount.config(state=DISABLED)
+        proteinRate_spinbox.config(state=DISABLED)
+
+def toggle_widget_drink():
+    if check_var_drink.get():
+        drink_combobox.config(state=NORMAL)
+        drinkQty_spinbox.config(state=NORMAL)
+        drinkAmount.config(state=NORMAL)
+        drinkRate_spinbox.config(state=NORMAL)
+    else:
+        drink_combobox.config(state=DISABLED)
+        drinkQty_spinbox.config(state=DISABLED)
+        drinkAmount.config(state=DISABLED)
+        drinkRate_spinbox.config(state=DISABLED)
+       
+       
+#------------------------EXIT FUNCTION BUTTON----------------------------------------------
 
 def exitProgram():
     if messagebox.askyesno("Billing System", "Do you want to Close or Exit the Billing System?"):
@@ -200,67 +252,72 @@ labelAmount.grid(row = 0,column = 4)
 
 #------------------------SOLD ITEMS----------------------------------------------
 #------------------------FOR SWALLOW----------------------------------------------
-swallow_check = Checkbutton(containerFrameItems,text = "Swallow")
+check_var_swallow = BooleanVar()
+swallow_check = Checkbutton(containerFrameItems,text = "Swallow"
+                            ,variable=check_var_swallow, command=toggle_widget_swallow)
 swallow_check.grid(row =1 ,column =0)
 
-swallow_combobox = ttk.Combobox(containerFrameItems,values =["Garri","Fufu","Amala","Pounded Yam","Wheat"])
+swallow_combobox = ttk.Combobox(containerFrameItems,values =["Garri","Fufu","Amala","Pounded Yam","Wheat"],state=DISABLED)
 swallow_combobox.grid(row = 1,column = 1)
 
-swallowQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity')
+swallowQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity',state=DISABLED)
 swallowQty_spinbox.grid(row =1 ,column =2)
 
-swallowRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity')
+swallowRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity',state=DISABLED)
 swallowRate_spinbox.grid(row =1 ,column =3)
 
-swallowAmount = Entry(containerFrameItems)
+swallowAmount = Entry(containerFrameItems,state=DISABLED)
 swallowAmount.grid(row =1 ,column =4)
 
 #------------------------FOR SOUP--------------------------------------------
-soup_check = Checkbutton(containerFrameItems,text = "Soup")
+check_var_soup = BooleanVar()
+soup_check = Checkbutton(containerFrameItems,text = "Soup",variable=check_var_soup, command=toggle_widget_soup)
 soup_check.grid(row =2,column =0)
 
-soup_combobox = ttk.Combobox(containerFrameItems,values =["Okro","Native","Bitterleave","Oha","Afang","Fisher-Man","Gnut Soup"])
+soup_combobox = ttk.Combobox(containerFrameItems,values =["Okro","Native","Bitterleave","Oha","Afang","Fisher-Man","Gnut Soup"],state=DISABLED)
 soup_combobox.grid(row = 2,column = 1)
 
-soupQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity')
+soupQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity',state=DISABLED)
 soupQty_spinbox.grid(row =2 ,column =2)
 
-soupRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity')
+soupRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity',state=DISABLED)
 soupRate_spinbox.grid(row =2 ,column =3)
 
-soupAmount = Entry(containerFrameItems)
+soupAmount = Entry(containerFrameItems,state=DISABLED)
 soupAmount.grid(row =2 ,column =4)
 
 #------------------------FOR PROTEIN--------------------------------------------
-protein_check = Checkbutton(containerFrameItems,text = "Protein")
+check_var_protein = BooleanVar()
+protein_check = Checkbutton(containerFrameItems,text = "Protein",variable=check_var_protein, command=toggle_widget_protein)
 protein_check.grid(row =3 ,column =0)
 
-protein_combobox = ttk.Combobox(containerFrameItems,values =["Goatmeat","Chicken","Turkey","Croker-Fish","Assorted","Cat-Fish"])
+protein_combobox = ttk.Combobox(containerFrameItems,values =["Goatmeat","Chicken","Turkey","Croker-Fish","Assorted","Cat-Fish"],state=DISABLED)
 protein_combobox.grid(row = 3,column = 1)
 
-proteinQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity')
+proteinQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity',state=DISABLED)
 proteinQty_spinbox.grid(row =3 ,column =2)
 
-proteinRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity')
+proteinRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity',state=DISABLED)
 proteinRate_spinbox.grid(row =3 ,column =3)
 
-proteinAmount = Entry(containerFrameItems)
+proteinAmount = Entry(containerFrameItems,state=DISABLED)
 proteinAmount.grid(row =3 ,column =4)
 
 #------------------------FOR DRINKS--------------------------------------------
-drink_check = Checkbutton(containerFrameItems,text = "Drinks")
+check_var_drink = BooleanVar()
+drink_check = Checkbutton(containerFrameItems,text = "Drinks",variable=check_var_drink, command=toggle_widget_drink)
 drink_check.grid(row =4 ,column =0)
 
-drink_combobox = ttk.Combobox(containerFrameItems,values =["Wine","Juice","Bottle-Water","Minerals","Malt"])
+drink_combobox = ttk.Combobox(containerFrameItems,values =["Wine","Juice","Bottle-Water","Minerals","Malt"],state=DISABLED)
 drink_combobox.grid(row = 4,column = 1)
 
-drinkQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity')
+drinkQty_spinbox = Spinbox(containerFrameItems,from_ = 1,to='infinity',state=DISABLED)
 drinkQty_spinbox.grid(row =4 ,column =2)
 
-drinkRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity')
+drinkRate_spinbox = Spinbox(containerFrameItems,from_ = 20,to='infinity',state=DISABLED)
 drinkRate_spinbox.grid(row =4 ,column =3)
 
-drinkAmount = Entry(containerFrameItems)
+drinkAmount = Entry(containerFrameItems,state=DISABLED)
 drinkAmount.grid(row =4 ,column =4)
 
 orderButton = Button(containerFrameItems,text = "Place Order"
