@@ -87,50 +87,84 @@ def clear():
     drink_combobox.delete(0,END)
 
     entryText.delete(1.0,END)
+    '''
+def order():
+    nairaSign = "\u20A6"
+    koboSign = ".00"
+    entryText.delete(1.0, END)  # Clear the receipt text before displaying new items
+
+    # Initialize the total bill
+    totalBill = 0
+
+    # Check and process the swallow item
+    if check_var_swallow.get():
+        swallowQ = int(swallowQty_spinbox.get())
+        swallowR = int(swallowRate_spinbox.get())
+        swallow_amount = swallowQ * swallowR
+
+        entryText.insert(END, "Swallow: ")
+        entryText.insert(END, f"{swallowQ} {swallow_combobox.get()} @ {nairaSign}{swallowR} = {nairaSign}{swallow_amount}{koboSign}\n")
+
+        totalBill += swallow_amount
+
+    # Check and process the soup item
+    if check_var_soup.get():
+        soupQ = int(soupQty_spinbox.get())
+        soupR = int(soupRate_spinbox.get())
+        soup_amount = soupQ * soupR
+
+        entryText.insert(END, "Soup: ")
+        entryText.insert(END, f"{soupQ} {soup_combobox.get()} @ {nairaSign}{soupR} = {nairaSign}{soup_amount}{koboSign}\n")
+
+        totalBill += soup_amount
+
+    # Check and process the protein item
+    if check_var_protein.get():
+        proteinQ = int(proteinQty_spinbox.get())
+        proteinR = int(proteinRate_spinbox.get())
+        protein_amount = proteinQ * proteinR
+
+        entryText.insert(END, "Protein: ")
+        entryText.insert(END, f"{proteinQ} {protein_combobox.get()} @ {nairaSign}{proteinR} = {nairaSign}{protein_amount}{koboSign}\n")
+
+        totalBill += protein_amount
+
+    # Check and process the drink item
+    if check_var_drink.get():
+        drinkQ = int(drinkQty_spinbox.get())
+        drinkR = int(drinkRate_spinbox.get())
+        drink_amount = drinkQ * drinkR
+
+        entryText.insert(END, "Drink: ")
+        entryText.insert(END, f"{drinkQ} {drink_combobox.get()} @ {nairaSign}{drinkR} = {nairaSign}{drink_amount}{koboSign}\n")
+
+        totalBill += drink_amount
+
+    # Add the subtotal, service charge, VAT, and total bill to the receipt
+    entryText.insert(END, "-------------------------\n")
+    entryText.insert(END, f"Sub-Total: {nairaSign}{totalBill}\n")
+    serviceCharge = totalBill * 0.1
+    entryText.insert(END, f"Service-Charge: {nairaSign}{serviceCharge}\n")
+    vat = totalBill * 0.05
+    entryText.insert(END, f"VAT: {nairaSign}{vat}\n")
+    entryText.insert(END, "-------------------------\n")
+    totalBill += serviceCharge + vat
+    entryText.insert(END, f"Total: {nairaSign}{totalBill}\n")
+
+'''
     
 def order():
-    nairaSign = "\u20A6" 
+    nairaSign = "\u20A6"
     koboSign = ".00"
-    swallowQ = int(swallowQty_spinbox.get()) 
-    swallowR = int(swallowRate_spinbox.get())
 
-    swallow_amount = swallowQ * swallowR
-
-    swallowAmount.delete(0,END)
-    swallowAmount.insert(0,nairaSign)
-    swallowAmount.insert(END, swallow_amount)
-    swallowAmount.insert(END, koboSign)
-
-    soupQ = int(soupQty_spinbox.get())
-    soupR = int(soupRate_spinbox.get())
-    soup_amount = soupQ * soupR
-    soupAmount.delete(0,END)
-    soupAmount.insert(0,nairaSign)
-    soupAmount.insert(END,soup_amount)
-    soupAmount.insert(END, koboSign)
-
-    proteinQ = int(proteinQty_spinbox.get())
-    proteinR = int(proteinRate_spinbox.get())
-    protein_amount = proteinQ * proteinR
-    proteinAmount.delete(0,END)
-    proteinAmount.insert(0,nairaSign)
-    proteinAmount.insert(END, protein_amount)
-    proteinAmount.insert(END, koboSign)
-
-    drinkQ = int(drinkQty_spinbox.get())
-    drinkR = int(drinkRate_spinbox.get())
-    drink_amount = (drinkQ * drinkR)
-    drinkAmount.delete(0,END)
-    drinkAmount.insert(0,nairaSign)
-    drinkAmount.insert(END,drink_amount)
-    drinkAmount.insert(END, koboSign)
-    #-----------------------GET ALL ITEMS ----------------------------------
+     #-----------------------GET ALL ITEMS ----------------------------------
     #for swallow only
+            
     itemSwallow = swallow_combobox.get()
     qtySwallow = swallowQty_spinbox.get()
     rateSwallow = swallowRate_spinbox.get()
-    
-     #for soup only
+           
+    #for soup only
     itemSoup = soup_combobox.get()
     qtySoup = soupQty_spinbox.get()
     rateSoup = soupRate_spinbox.get()
@@ -140,19 +174,11 @@ def order():
     qtyProtein = proteinQty_spinbox.get()
     rateProtein = proteinRate_spinbox.get()
 
-     #for drinks only
+             #for drinks only
     itemDrink = drink_combobox.get()
     qtyDrink = drinkQty_spinbox.get()
     rateDrink = drinkRate_spinbox.get()
-
-     #-----------------------TOTAL BILL PER RECEIPT ------------------------------------------
-    subTotalBill = swallow_amount +   soup_amount +   protein_amount +   drink_amount
-    serviceCharge = subTotalBill * 0.1
-    vat = subTotalBill * 0.05
-    totalBill = subTotalBill +  serviceCharge +    vat
     
-     #-----------------------GET ALL ITEMS INTO THE RECEIPT ----------------------------------
-    TotalBill = swallow_amount+soup_amount +protein_amount+ drink_amount
     entryText.delete(1.0,END)
     entryText.insert(END,"==================================================")
     entryText.insert(END,"--------------------RECEIPT-----------------------")
@@ -163,18 +189,63 @@ def order():
     entryText.insert(END,"--------------------------------------------------\n")
     entryText.insert(END,"ITEMS\t\tQTY\tRATE\t\tAmount\n\n")
     entryText.insert(END,"--------------------------------------------------\n")
-    entryText.insert(END,f"{itemSwallow}\t\t{qtySwallow}\t{rateSwallow}\t\t{nairaSign}{swallow_amount}{koboSign} \n\n")#swallow
-    entryText.insert(END,f"{itemSoup}\t\t{qtySoup}\t{rateSoup}\t\t{nairaSign}{soup_amount}{koboSign} \n\n")#soup
-    entryText.insert(END,f"{itemProtein}\t\t{qtyProtein}\t{rateProtein}\t\t{nairaSign}{protein_amount}{koboSign} \n\n")#protein
-    entryText.insert(END,f"{itemDrink}\t\t{qtyDrink}\t{rateDrink}\t\t{nairaSign}{drink_amount}{koboSign} \n\n\n")#drink
-
-    entryText.insert(END,"--------------------------------------------------\n")
-    entryText.insert(END,f"\t\tSub-Total:{nairaSign}{subTotalBill}\n")#subtotal bill
-    entryText.insert(END,f"\t\tService-Charge:{nairaSign}{serviceCharge}\n")#service charge
-    entryText.insert(END,f"\t\tVAT:{nairaSign}{vat}\n")#VAT
-    entryText.insert(END,"--------------------------------------------------\n")
-    entryText.insert(END,f"\t\tTotal:{nairaSign}{totalBill}\n")#total bill
     
+    if check_var_swallow.get():
+        swallowQ = int(swallowQty_spinbox.get()) 
+        swallowR = int(swallowRate_spinbox.get())
+        swallow_amount = swallowQ * swallowR
+        entryText.insert(END,f"{itemSwallow}\t\t{qtySwallow}\t{rateSwallow}\t\t{nairaSign}{swallow_amount}{koboSign} \n\n")#swallow
+        swallowAmount.delete(0,END)
+        swallowAmount.insert(0,nairaSign)
+        swallowAmount.insert(END, swallow_amount)
+        swallowAmount.insert(END, koboSign)
+        
+    if check_var_soup.get():
+        soupQ = int(soupQty_spinbox.get())
+        soupR = int(soupRate_spinbox.get())
+        soup_amount = soupQ * soupR
+        entryText.insert(END,f"{itemSoup}\t\t{qtySoup}\t{rateSoup}\t\t{nairaSign}{soup_amount}{koboSign} \n\n")#soup
+        soupAmount.delete(0,END)
+        soupAmount.insert(0,nairaSign)
+        soupAmount.insert(END,soup_amount)
+        soupAmount.insert(END, koboSign)
+
+    if check_var_protein.get():
+        proteinQ = int(proteinQty_spinbox.get())
+        proteinR = int(proteinRate_spinbox.get())
+        protein_amount = proteinQ * proteinR
+        entryText.insert(END,f"{itemProtein}\t\t{qtyProtein}\t{rateProtein}\t\t{nairaSign}{protein_amount}{koboSign} \n\n")#protein
+        proteinAmount.delete(0,END)
+        proteinAmount.insert(0,nairaSign)
+        proteinAmount.insert(END, protein_amount)
+        proteinAmount.insert(END, koboSign)
+
+    if check_var_drink.get():
+        drinkQ = int(drinkQty_spinbox.get())
+        drinkR = int(drinkRate_spinbox.get())
+        drink_amount = (drinkQ * drinkR)
+        entryText.insert(END,f"{itemDrink}\t\t{qtyDrink}\t{rateDrink}\t\t{nairaSign}{drink_amount}{koboSign} \n\n\n")#drink
+        drinkAmount.delete(0,END)
+        drinkAmount.insert(0,nairaSign)
+        drinkAmount.insert(END,drink_amount)
+        drinkAmount.insert(END, koboSign)
+   
+
+         #-----------------------TOTAL BILL PER RECEIPT ------------------------------------------
+        subTotalBill = swallow_amount +   soup_amount +   protein_amount +   drink_amount
+        serviceCharge = subTotalBill * 0.1
+        vat = subTotalBill * 0.05
+        totalBill = subTotalBill +  serviceCharge +    vat
+        
+     #-----------------------GET ALL ITEMS INTO THE RECEIPT ----------------------------------
+        TotalBill = swallow_amount+soup_amount +protein_amount+ drink_amount
+        entryText.insert(END,"--------------------------------------------------\n")
+        entryText.insert(END,f"\t\tSub-Total:{nairaSign}{subTotalBill}\n")#subtotal bill
+        entryText.insert(END,f"\t\tService-Charge:{nairaSign}{serviceCharge}\n")#service charge
+        entryText.insert(END,f"\t\tVAT:{nairaSign}{vat}\n")#VAT
+        entryText.insert(END,"--------------------------------------------------\n")
+        entryText.insert(END,f"\t\tTotal:{nairaSign}{totalBill}\n")#total bill
+        
 def receipt():
     print("Receipt")
     print (swallow_amount)
