@@ -156,8 +156,7 @@ def order():
 def order():
     nairaSign = "\u20A6"
     koboSign = ".00"
-
-     #-----------------------GET ALL ITEMS ----------------------------------
+  #-----------------------GET ALL ITEMS ----------------------------------
     #for swallow only
             
     itemSwallow = swallow_combobox.get()
@@ -178,6 +177,12 @@ def order():
     itemDrink = drink_combobox.get()
     qtyDrink = drinkQty_spinbox.get()
     rateDrink = drinkRate_spinbox.get()
+
+      # Initialize the subtotal, service charge, VAT, and total bill
+    subTotalBill = 0
+    serviceCharge = 0
+    vat = 0
+    totalBill = 0
     
     entryText.delete(1.0,END)
     entryText.insert(END,"==================================================")
@@ -189,22 +194,25 @@ def order():
     entryText.insert(END,"--------------------------------------------------\n")
     entryText.insert(END,"ITEMS\t\tQTY\tRATE\t\tAmount\n\n")
     entryText.insert(END,"--------------------------------------------------\n")
-    
+    # Calculate and display the amount for each item and add it to the receipt
     if check_var_swallow.get():
         swallowQ = int(swallowQty_spinbox.get()) 
         swallowR = int(swallowRate_spinbox.get())
         swallow_amount = swallowQ * swallowR
         entryText.insert(END,f"{itemSwallow}\t\t{qtySwallow}\t{rateSwallow}\t\t{nairaSign}{swallow_amount}{koboSign} \n\n")#swallow
+        subTotalBill += swallow_amount
         swallowAmount.delete(0,END)
         swallowAmount.insert(0,nairaSign)
         swallowAmount.insert(END, swallow_amount)
         swallowAmount.insert(END, koboSign)
+        
         
     if check_var_soup.get():
         soupQ = int(soupQty_spinbox.get())
         soupR = int(soupRate_spinbox.get())
         soup_amount = soupQ * soupR
         entryText.insert(END,f"{itemSoup}\t\t{qtySoup}\t{rateSoup}\t\t{nairaSign}{soup_amount}{koboSign} \n\n")#soup
+        subTotalBill += soup_amount
         soupAmount.delete(0,END)
         soupAmount.insert(0,nairaSign)
         soupAmount.insert(END,soup_amount)
@@ -215,6 +223,7 @@ def order():
         proteinR = int(proteinRate_spinbox.get())
         protein_amount = proteinQ * proteinR
         entryText.insert(END,f"{itemProtein}\t\t{qtyProtein}\t{rateProtein}\t\t{nairaSign}{protein_amount}{koboSign} \n\n")#protein
+        subTotalBill += protein_amount
         proteinAmount.delete(0,END)
         proteinAmount.insert(0,nairaSign)
         proteinAmount.insert(END, protein_amount)
@@ -225,17 +234,16 @@ def order():
         drinkR = int(drinkRate_spinbox.get())
         drink_amount = (drinkQ * drinkR)
         entryText.insert(END,f"{itemDrink}\t\t{qtyDrink}\t{rateDrink}\t\t{nairaSign}{drink_amount}{koboSign} \n\n\n")#drink
+        subTotalBill += drink_amount
         drinkAmount.delete(0,END)
         drinkAmount.insert(0,nairaSign)
         drinkAmount.insert(END,drink_amount)
         drinkAmount.insert(END, koboSign)
-   
-
-         #-----------------------TOTAL BILL PER RECEIPT ------------------------------------------
-        subTotalBill = swallow_amount +   soup_amount +   protein_amount +   drink_amount
+    #-----------------------TOTAL BILL PER RECEIPT ------------------------------------------
+        #subTotalBill = swallow_amount +   soup_amount +   protein_amount +   drink_amount
         serviceCharge = subTotalBill * 0.1
         vat = subTotalBill * 0.05
-        totalBill = subTotalBill +  serviceCharge +    vat
+        totalBill = subTotalBill+serviceCharge+vat
         
      #-----------------------GET ALL ITEMS INTO THE RECEIPT ----------------------------------
         TotalBill = swallow_amount+soup_amount +protein_amount+ drink_amount
@@ -285,33 +293,27 @@ containerFrameReceipt.pack()
 entryText = Text(containerFrameReceipt,height = 30,width=50,relief = GROOVE,bd =10)
 entryText.pack(pady=10,padx=10,side=RIGHT)
 
-
 #------------------------HEADINGS--------------------------------------------
 containerFrameItems = Frame(containerFrameReceipt)
-containerFrameItems.pack(side=BOTTOM)
+containerFrameItems.pack(side=RIGHT)
 
-labelSN = Label(containerFrameItems,text = "S/N"
-                ,relief = GROOVE,bd=10
-                ,bg="red",fg="white"
-                ,font="bold")
+lblFirstName =Label(containerFrameItems,text = "First Name: ")
+lblFirstName.grid(row = 0,column = 0)
+
+lblLastName =Label(containerFrameItems,text = "First Name: ")
+lblLastName.grid(row = 1,column = 0)
+
+
+labelSN = Label(containerFrameItems,text = "S/N" ,relief = GROOVE,bd=10,bg="red",fg="white",font="bold")
 labelSN.grid(row = 0,column = 0)
 
-labelItem = Label(containerFrameItems,text = "ITEMS"
-                  ,relief = RIDGE,bd=10
-                ,bg="red",fg="white"
-                ,font="bold")
+labelItem = Label(containerFrameItems,text = "ITEMS",relief = RIDGE,bd=10  ,bg="red",fg="white",font="bold")
 labelItem.grid(row = 0,column = 1)
 
-labelQty = Label(containerFrameItems,text = "QTY."
-                 ,relief = SUNKEN,bd=10
-                ,bg="red",fg="white"
-                ,font="bold")
+labelQty = Label(containerFrameItems,text = "QTY.",relief = SUNKEN,bd=10,bg="red",fg="white",font="bold")
 labelQty.grid(row = 0,column = 2)
 
-labelRate = Label(containerFrameItems,text = "RATE"
-                  ,relief = FLAT,bd=10
-                ,bg="red",fg="white"
-                ,font="bold")
+labelRate = Label(containerFrameItems,text = "RATE"  ,relief = FLAT,bd=10,bg="red",fg="white",font="bold")
 labelRate.grid(row = 0,column = 3)
 
 labelAmount = Label(containerFrameItems,text = "AMOUNT"
