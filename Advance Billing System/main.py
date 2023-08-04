@@ -8,6 +8,7 @@ import random
 #------------------------FUNCTIONS----------------------------------------------
 billnumber = random.randint(1000,10000)
 constant = "OCK"
+# ₦
 #------------------------CHECKBUTTON FUNCTIONS----------------------------------------------
 def toggle_widget_swallow():
     if check_var_swallow.get():
@@ -86,6 +87,10 @@ def clear():
     drinkRate_spinbox.delete(0,END)
     drink_combobox.delete(0,END)
 
+    entryFirstName.delete(0,END)
+    entryLastName.delete(0,END)
+    entryPhoneNumber.delete(0,END)
+    
     entryText.delete(1.0,END)
     '''
 def order():
@@ -154,9 +159,16 @@ def order():
 '''
     
 def order():
-    nairaSign = "\u20A6"
+    nairaSign = "\u20A6" #chr value for naira
     koboSign = ".00"
+  #-----------------------CUSTOMERS DETAILS ----------------------------------
+    fname = entryFirstName.get()
+    lname = entryLastName.get()
+    pnumber = entryPhoneNumber.get()
+    
+    
   #-----------------------GET ALL ITEMS ----------------------------------
+    
     #for swallow only
             
     itemSwallow = swallow_combobox.get()
@@ -188,9 +200,11 @@ def order():
     entryText.insert(END,"==================================================")
     entryText.insert(END,"--------------------RECEIPT-----------------------")
     entryText.insert(END,"==================================================")
-    entryText.insert(END,"\t\t\t**Welcome Customer**\n\n\n")
+    entryText.insert(END,"\t\t\t**Welcome Customer**\n\n")
     entryText.insert(END,"Customer's Details: \n")
-    entryText.insert(END,f"Bill Number: {constant}{billnumber} \n\n")
+    entryText.insert(END,f"Bill Number: {constant}{billnumber} \n")
+    entryText.insert(END,f"Customer's Name: {fname} {lname} \n")
+    entryText.insert(END,f"Phone Number: {pnumber}\n")
     entryText.insert(END,"--------------------------------------------------\n")
     entryText.insert(END,"ITEMS\t\tQTY\tRATE\t\tAmount\n\n")
     entryText.insert(END,"--------------------------------------------------\n")
@@ -271,13 +285,7 @@ root.resizable(0,0)
 
 #root.geometry("750x650+850+60")
 #root.iconbitmap("icon.ico")
-#------------------------Customer's Details--------------------------------------------
-#customersDetailsFrame = LabelFrame(root,text = "Customers Details")
 
-#lblFirstName =Label(root,text = "First Name: ")
-#lblFirstName.grid(row = 0,column = 0)
-
-#customersDetailsFrame.pack(side = TOP)
 #------------------------Background Image--------------------------------------------
 # Load the background image
 background_image = PhotoImage(file="learn.png")
@@ -419,7 +427,30 @@ for widget in containerFrameItems.winfo_children():
     widget.grid_configure(padx = 20,pady = 10)
     widget.configure(font = "14",width = 8)
 
+#------------------------Customer's Details--------------------------------------------
 
+lblCustomersDetails =Label(containerFrameItems,text = "Customer's Details: ",relief = GROOVE,width = 100,bg="red",fg="white")
+lblCustomersDetails.grid(row = 6,column = 0,columnspan =5,pady = 10)
+
+lblFirstName =Label(containerFrameItems,text = "FirstName: ")
+lblFirstName.grid(row = 7,column = 0,pady = 10)
+
+entryFirstName =Entry(containerFrameItems)
+entryFirstName.grid(row = 7,column = 1)
+
+lblPhoneNumber =Label(containerFrameItems,text = "Phone Number: ")
+lblPhoneNumber.grid(row = 7,column = 2)
+entryPhoneNumber =Entry(containerFrameItems)
+entryPhoneNumber.grid(row = 7,column = 3)
+
+lblLastName =Label(containerFrameItems,text = "LastName: ")
+lblLastName.grid(row = 8,column = 0)
+entryLastName =Entry(containerFrameItems)
+entryLastName.grid(row = 8,column = 1)
+
+lblCustomersDetailsDesign1 =Label(containerFrameItems,relief = GROOVE,width = 100,bg="red").grid(row = 9,column = 0,columnspan =5,pady = 10)
+lblCustomersDetailsDesign2 =Label(containerFrameItems,relief = GROOVE,width = 100,bg="red").grid(row = 10,column = 0,columnspan =5,pady = 10)
+lblCustomersDetailsDesign3 =Label(containerFrameItems,relief = GROOVE,width = 100,bg="red").grid(row = 11,column = 0,columnspan =5,pady = 10)
 
 
 
