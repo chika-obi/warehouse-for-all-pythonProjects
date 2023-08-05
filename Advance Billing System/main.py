@@ -334,8 +334,7 @@ labelAmount.grid(row = 0,column = 4)
 #------------------------SOLD ITEMS----------------------------------------------
 #------------------------FOR SWALLOW----------------------------------------------
 check_var_swallow = BooleanVar()
-swallow_check = Checkbutton(containerFrameItems,text = "Swallow"
-                            ,variable=check_var_swallow, command=toggle_widget_swallow)
+swallow_check = Checkbutton(containerFrameItems,text = "Swallow",variable=check_var_swallow, command=toggle_widget_swallow)
 swallow_check.grid(row =1 ,column =0)
 
 swallow_combobox = ttk.Combobox(containerFrameItems,values =["Garri","Fufu","Amala","Pounded Yam","Wheat"],state=DISABLED)
